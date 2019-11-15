@@ -1,0 +1,4 @@
+flask-cors==3.0.8
+pymongo==3.6.1
+flask==0.12.2
+pyopenssl==18.0.0

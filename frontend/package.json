@@ -1,0 +1,23 @@
+{
+  "name": "hyper-protect-disaster-donations",
+  "version": "1.0.0",
+  "description": "Disaster Donations Code Pattern for IBM Cloud Hyper Protect Services",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "path": "^0.12.7"
+  }
+}

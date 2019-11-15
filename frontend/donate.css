@@ -1,0 +1,68 @@
+body {
+    /* background: #fff url(images/flood.jpg) no-repeat; */
+    /* background-size: 100% 35%; */
+}
+
+input {
+    display: block;
+    margin-bottom: 1em;
+}
+
+.zero {
+    padding: 3em;
+}
+
+#grid {
+    grid-template-rows: 8em auto auto 20em 8em 20em 16em;
+    grid-template-areas: "title title menu"
+                         "donate-fields donate-fields donate-fields"
+                         "donate-results donate-results donate-results"
+                         "don1 don2 don3"
+                         "how-help how-help how-help"
+                         "why1 why2 why3"
+                         "about sitelinks contact";
+}
+
+#donate-results {
+    grid-area: donate-results;
+
+}
+
+#donate-fields {
+    margin: 6em;
+    padding: 3em 10em;
+    background-color: rgba(248, 111, 45, 0.6);
+    grid-area: donate-fields;
+}
+
+#donate-fields h2 {
+    font-size: 150%;
+}
+
+#donate-results {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #000;
+}
+
+.donation {
+    display: inline-block;
+    padding: 1em 3em;
+}
+
+.donation .name {
+    font-weight: 500;
+    text-align: center;
+}
+
+.donation img {
+    border-radius: 50%;
+    border: 3px solid #000;
+    height: 5em;
+    padding: 0;
+    margin: 0;
+}
+
+.donation .donation-amount {
+    font-weight: 500;
+    text-align: center;
+}

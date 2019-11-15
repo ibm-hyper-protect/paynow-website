@@ -1,0 +1,20 @@
+"""This module will encode and parse the query string params."""
+
+#from urlparse import parse_qs
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
+
+
+def parse_query_params(query_string):
+    """
+        Function to parse the query parameter string.
+    """
+    # Parse the query param string
+    parsed = urlparse(query_string)
+    print(parsed)
+    query_params = dict(parse_qs(parsed.path))
+    print(query_params)
+    # Get the value from the list
+    query_params = {k: v[0] for k, v in query_params.items()}
+    return query_params
+

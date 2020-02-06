@@ -18,6 +18,7 @@ db = DATABASE
 collection = db.transactions
 
 @app.route("/")
+@app.route("/api")
 def get_initial_response():
     """Welcome message for the API."""
     # Message to the trandaction

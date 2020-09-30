@@ -1,5 +1,6 @@
 # Disaster Donations Website
 
+## About:
 In this code pattern, we will create a disaster donations website
 using a node.js Express app, and a python backend app (exposing a
 RESTful API). The website presents an interface to learn about the
@@ -22,7 +23,7 @@ When you have completed this code pattern, you will understand how to:
 * (Optional) Deploy an nginx reverse proxy
 
 
-## Steps
+## Steps:
 
 The frontend and backend applications can both be run locally, or in
 the IBM Cloud in a Linux VM, for example an [IBM Cloud Hyper Protect
@@ -36,7 +37,7 @@ Follow the steps in the readme files for the
 - (Optional) [proxy](./proxy)
 
 
-## Sample output
+## Sample output:
 
 A website will be functional and served by the machine you're running
 this code pattern on:
@@ -44,7 +45,7 @@ this code pattern on:
 ![sample_output](website.png)
 
 
-## License
+## License:
 
 This code pattern is licensed under the Apache License,
 Version 2. Separate third-party code objects invoked within this code

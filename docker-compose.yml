@@ -1,0 +1,37 @@
+# disaster-donations app - front-end and back-end
+# 
+version: '0'
+services:
+  frontend:
+    image: us.icr.io/rilapoc/rila-app-frontend:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - disaster-files:/app/files
+    env_file:
+      - ./disaster-app.env
+    networks:
+      disaster-app-network:
+        ipv4_address: 172.16.238.2
+  backend:
+    image: us.icr.io/rilapoc/rila-app-backend:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      - disaster-files:/app/files
+    env_file:
+      - ./disaster-app.env
+    networks:
+      disaster-app-network:
+        ipv4_address: 172.16.238.3
+volumes:
+  disaster-files:
+    driver: local
+networks:
+  disaster-app-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
+          gateway: 172.16.238.1

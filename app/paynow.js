@@ -14,7 +14,11 @@
 #   limitations under the License.
 ##############################################################################*/
 // Backend database to GET and POST donations to
-const BACKEND = "http://localhost:5000/api/v1/transactions";
+var BACKEND_URL = new URL(window.location.origin)
+BACKEND_URL.search = ''
+BACKEND_URL.pathname = '/api/v1/transactions'
+var BACKEND = BACKEND_URL.toString()
+console.log("BACKEND: " + BACKEND);
 
 // Used to select random people photos
 function getRandomInt(min, max) {
@@ -26,14 +30,15 @@ $(document).ready(getDonations());
 
 // When the website user clicks the donate button, send their details
 // to the backend and update the page
-$("#donateButton").click(function () {
+$("#paynowButton").click(function () {
 
   var donateJSON = {
-    fundraising_event: "Isabel_Hurricane_Relief",
     name: $('#formName').val(),
     email: $('#formEmail').val(),
     location: $('#formCountry').val(),
-    contribution: $('#donationAmount').val()
+    contribution: $('#paymentAmount').val(),
+    creditCardNumber: $('#ccNum').val(),
+    creditCardCVV: $('#ccCVV').val()
   };
 
   console.log("Sending : " + JSON.stringify(donateJSON));
@@ -44,29 +49,24 @@ $("#donateButton").click(function () {
     contentType: "application/json; charset=utf-8",
     data: JSON.stringify(donateJSON),
     success: function (msg) {
-      console.log("MongoDB Id " + JSON.stringify(msg));
 
       // Change the button text
-      $("#donateButton").prop('value', 'Thank you!');
+      $("#paynowButton").prop('value', 'Thank you!');
 
       // Clear the fields
       $('#formName').prop('value', '');
       $('#formEmail').prop('value', '');
       $('#ccNum').prop('value', '');
       $('#ccCVV').prop('value', '');
-      $('#donationAmount').prop('value', '$');
+      $('#paymentAmount').prop('value', '$');
 
       // Scroll down to show the donation results
       setTimeout(function () {
-        document.querySelector('#donate-results').scrollIntoView({
-          behavior: 'smooth'
-        });
-
         // Get the current donations again (repopulate the HTML)
         getDonations();
 
         // Change the donation button back
-        $("#donateButton").prop('value', 'Donate');
+        $("#paynowButton").prop('value', 'PayNow');
       }, 1000);
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -77,7 +77,7 @@ $("#donateButton").click(function () {
 
 
 
-// Fetch the donations from the backend database and insert it into
+// Fetch the PayNow from the backend database and insert it into
 // the donations page.
 function getDonations() {
   $.ajax({
@@ -87,10 +87,10 @@ function getDonations() {
     success: function (msg) {
       console.log("Success : " + JSON.stringify(msg));
 
-      // No new donations, try again in a few seconds
+      // No new payments, try again in a few seconds
       if (msg.length == 0) {
         console.log("Backend DB empty");
-        $("#donate-results").html(`<p class="zero">Zero donations: be the first!</p>`);
+        $("#paynow-results").html(`<p class="zero">You have not made any payments yet. Try it now!</p>`);
         return;
       }
 
@@ -102,14 +102,14 @@ function getDonations() {
       var donator = "";
       $.each(donatorList, function (index, value) {
 
-        donator = donator + `<div class="donation">
+        donator = donator + `<div class="paynow">
                     <p class="name">` + value.name + `</p>
                     <img src="images/person_` + getRandomInt(1, 9) + `.jpg" />
-                    <p class="donation-amount">` + value.contribution + `</p>
+                    <p class="payment-amount">` + value.contribution + `</p>
                     </div>`;
 
       });
-      $("#donate-results").html(donator);
+      $("#paynow-results").html(donator);
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
       console.log("Error : " + textStatus + " Threw : " + errorThrown);

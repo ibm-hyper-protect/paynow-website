@@ -1,7 +1,0 @@
-applications:
-- name: hyper-protect-donate
-  memory: 32M
-  disk_quota: 32M
-  path: .
-  buildpacks:
-    - https://github.com/cloudfoundry/nginx-buildpack.git

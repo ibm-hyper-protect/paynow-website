@@ -16,11 +16,16 @@
 var express = require('express');
 var fs = require('fs');
 var http = require('http');
+var https = require('https');
 
 var app = express();
+const bodyParser = require('body-parser');
 var path = require('path');
 
+var transactions = [];
+
 app.use(express.static('./'));
+app.use(express.json());
 
 var options = {
     key: fs.readFileSync( 'sslcert/localhost.key', 'utf8' ),
@@ -29,15 +34,24 @@ var options = {
     rejectUnauthorized: false
 };
 
-var https = require('https');
-
-var httpServer = http.createServer(app);
-var httpsServer = https.createServer(options, app);
-
 app.get('/', function(req, res) {
     console.log(path.join(__dirname + '/index.html'));
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-httpServer.listen(8080);
-httpsServer.listen(8443);
+
+app.get('/api/v1/transactions', function(req, res) {
+    console.log('GET ' + req.path);
+    res.status(200).send(JSON.stringify(transactions));
+});
+
+app.post('/api/v1/transactions', (req, res) => {
+    console.log('POST ' + req.path);
+    let data = req.body;
+    transactions.push(data);
+    let record_count = transactions.length - 1;
+    res.status(201).send(JSON.stringify(record_count));
+})
+
+http.createServer(app).listen(8080);
+https.createServer(options, app).listen(8443);

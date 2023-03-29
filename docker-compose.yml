@@ -1,0 +1,5 @@
+services:
+  paynow:
+    image: paynow:latest
+    ports:
+          - "8443:8443"

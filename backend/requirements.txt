@@ -1,4 +1,4 @@
 pymongo==3.6.1
 Flask==1.1.1
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 pyopenssl==18.0.0

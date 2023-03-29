@@ -1,4 +1,3 @@
-"""This is init module."""
 ##############################################################################
 # Copyright 2019 IBM Corp. All Rights Reserved.
 #
@@ -15,10 +14,19 @@
 #   limitations under the License.
 ##############################################################################
 
-from flask import Flask
-from flask_cors import CORS
+FROM node:19
 
-# Place where app is defined
-app = Flask(__name__)
-CORS(app)
-from app import transaction
+# Create app directory
+WORKDIR /app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY app/package*.json ./
+RUN npm install
+
+# Bundle app source
+COPY app/ .
+
+EXPOSE 8443
+CMD npm start

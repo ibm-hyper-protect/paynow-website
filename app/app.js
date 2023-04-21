@@ -39,6 +39,10 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/api/v1/attestation', function(req, res) {
+    console.log('GET ' + req.path);
+    res.type('txt').sendFile('/var/hyperprotect/se-checksums.txt.enc');
+});
 
 app.get('/api/v1/transactions', function(req, res) {
     console.log('GET ' + req.path);

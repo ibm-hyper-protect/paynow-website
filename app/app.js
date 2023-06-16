@@ -44,6 +44,11 @@ app.get('/api/v1/attestation', function(req, res) {
     res.type('txt').sendFile('/var/hyperprotect/se-checksums.txt.enc');
 });
 
+app.get('/api/v1/attestationdocument', function(req, res) {
+    console.log('GET ' + req.path);
+    res.type('txt').sendFile('/var/hyperprotect/se-checksums.txt');
+});
+
 app.get('/api/v1/transactions', function(req, res) {
     console.log('GET ' + req.path);
     res.status(200).send(JSON.stringify(transactions));

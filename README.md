@@ -38,3 +38,18 @@ functioning correctly.
 Note that your web browser may display a warning about a insecure connection and a invalid certificate,
 as the application uses a simple self signed certificate for `CN=localhost`.
 The certificate is contained in folder `sslcert`.
+
+## Run the Application in Hyper Protect Virtual Server for VPC and validate the attestation record
+
+You can run the application in [Hyper Protect Virtual Server for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-se). To do so, follow this [tutorial ](https://cloud.ibm.com/docs/vpc?topic=vpc-financial-transaction-confidential-computing-on-hyper-protect-virtual-server-for-vpc).
+
+You can then download a zip file containing the [attestation record](https://cloud.ibm.com/docs/vpc?topic=vpc-about-attestation) and the signature file from API URL [`https://ip:8443/api/v1/attestation`](https://ip:8443/api/v1/attestation). This zip file contains the attestation record `se-checksums.txt` or `se-checksums.txt.enc` (the latter if you are using an encrypted attestation record) and the signature file `se-signature.bin`.
+
+To verify the signature, follow these [instructions](https://cloud.ibm.com/docs/vpc?topic=vpc-about-attestation).
+
+To validate the attestation record, compute the checksum of your contract
+```
+sha256sum contract.yml
+```
+and compare this checksum to the value for `cidata/user-data` in file `se-checksums.txt`.
+

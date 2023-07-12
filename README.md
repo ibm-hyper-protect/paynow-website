@@ -47,8 +47,9 @@ You can then download a zip file containing the [attestation record](https://clo
 
 To verify the signature, follow these [instructions](https://cloud.ibm.com/docs/vpc?topic=vpc-about-attestation).
 
-To validate the attestation record, compute the checksum of your contract
+To validate the attestation record, compute the checksum of your contract (you may need to remove a potential trailing EOL character at the end of file `contract.yml` first): 
 ```
+perl -p -i -e 'chomp if eof' contract.yml
 sha256sum contract.yml
 ```
 and compare this checksum to the value for `cidata/user-data` in file `se-checksums.txt`.

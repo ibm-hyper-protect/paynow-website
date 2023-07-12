@@ -17,6 +17,7 @@ var express = require('express');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
+var admzip = require('adm-zip');
 
 var app = express();
 const bodyParser = require('body-parser');
@@ -41,7 +42,22 @@ app.get('/', function(req, res) {
 
 app.get('/api/v1/attestation', function(req, res) {
     console.log('GET ' + req.path);
-    res.type('txt').sendFile('/var/hyperprotect/se-checksums.txt.enc');
+    const fileName = 'attestation.zip';
+    const fileType = 'application/zip';
+    var zip = new admzip();
+    try {
+        zip.addLocalFile("/var/hyperprotect/se-checksums.txt.enc");
+    }
+    catch (e) {
+        zip.addLocalFile("/var/hyperprotect/se-checksums.txt");
+    }
+    zip.addLocalFile("/var/hyperprotect/se-signature.bin");
+    var zipFileContents = zip.toBuffer();
+    res.writeHead(200, {
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Content-Type': fileType,
+      })
+    res.end(zipFileContents);
 });
 
 app.get('/api/v1/attestationdocument', function(req, res) {

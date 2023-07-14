@@ -1,6 +1,6 @@
 services:
   paynow:
-    image: ghcr.io/ibm-hyper-protect/paynow-website@sha256:f2d66e5bdb698cc37cc8b605c3dd999d58fc08b40fc9f8524c5c050d24556e9e
+    image: ghcr.io/ibm-hyper-protect/paynow-website@sha256:ddba7d52d058f46b184d67783e8c55999a8d439a1eb11d3d5314cd787a928bc3
     ports:
       - "8080:8080"
       - "8443:8443"

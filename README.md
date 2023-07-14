@@ -15,6 +15,7 @@ Virtual Server for VPC](https://www.ibm.com/cloud/hyper-protect-virtual-servers)
 
 ## Build and Run the Application
 
+### Simple way to run the application
 To build and run an application container image, 
 run these commands:
 
@@ -22,6 +23,20 @@ run these commands:
 docker build -t paynow .
 docker run -it -p 8443:8443 paynow
 ```
+
+### Run the application with your SSL certificate
+Alternatively, you can create a SSL private key and certificate and pass these to the application:
+
+```
+docker build -t paynow .
+openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout server.key -out server.crt
+CERT=$(base64 -w 0 server.crt)
+KEY=$(base64 -w 0 server.key)
+docker run -it -p 8443:8443 -e KEY=$KEY -e CERT=$CERT paynow
+```
+
+The application will use your private key and certificate for SSL.
+
 
 ## Test the Application
 
@@ -35,14 +50,15 @@ AJAX calls to issue `GET` and `POST` requests.
 You can view the console to check these network calls are
 functioning correctly.
 
-Note that your web browser may display a warning about a insecure connection and a invalid certificate,
-as the application uses a simple self signed certificate for `CN=localhost`.
-The certificate is contained in folder `sslcert`.
+Note: If you do not use your own certificate, your web browser may display a warning about a insecure connection and a invalid certificate, as in this case the application uses a simple self signed certificate for `CN=localhost`.
 
 ## Run the Application in Hyper Protect Virtual Server for VPC and validate the attestation record
 
 You can run the application in [Hyper Protect Virtual Server for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-se). To do so, follow this [tutorial ](https://cloud.ibm.com/docs/vpc?topic=vpc-financial-transaction-confidential-computing-on-hyper-protect-virtual-server-for-vpc).
 
+You can optionally include the private key and the certificate in the env section of the contract.
+
+### Validate the attestation record
 You can then download a zip file containing the [attestation record](https://cloud.ibm.com/docs/vpc?topic=vpc-about-attestation) and the signature file from API URL [`https://ip:8443/api/v1/attestation`](https://ip:8443/api/v1/attestation). This zip file contains the attestation record `se-checksums.txt` or `se-checksums.txt.enc` (the latter if you are using an encrypted attestation record) and the signature file `se-signature.bin`.
 
 To verify the signature, follow these [instructions](https://cloud.ibm.com/docs/vpc?topic=vpc-about-attestation).

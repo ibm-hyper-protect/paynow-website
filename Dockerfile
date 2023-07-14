@@ -27,6 +27,7 @@ RUN npm install
 
 # Bundle app source
 COPY app/ .
+RUN chmod 777 app.sh
 
 EXPOSE 8443
-CMD npm start
+CMD bash -c './app.sh'

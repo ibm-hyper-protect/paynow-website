@@ -29,8 +29,8 @@ app.use(express.static('./'));
 app.use(express.json());
 
 var options = {
-    key: fs.readFileSync( 'sslcert/localhost.key', 'utf8' ),
-    cert: fs.readFileSync('sslcert/localhost.cert', 'utf8'),
+    key: fs.readFileSync( 'sslcert/key', 'utf8' ),
+    cert: fs.readFileSync('sslcert/cert', 'utf8'),
     requestCert: false,
     rejectUnauthorized: false
 };

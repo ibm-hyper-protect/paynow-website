@@ -14,7 +14,7 @@
 #   limitations under the License.
 ##############################################################################
 
-FROM node:19
+FROM node:21
 
 # Create app directory
 WORKDIR /app

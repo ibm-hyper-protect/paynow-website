@@ -100,12 +100,14 @@ function getDonations() {
       // Chopping it up so we only show latest 5 contributions
       // console.log(donatorList.slice(0, (donatorList.length < 5 ? donatorList.length : 5)));
       var donator = "";
+      var status ="Settled"
       $.each(donatorList, function (index, value) {
 
         donator = donator + `<div class="paynow">
                     <p class="name">` + value.name + `</p>
                     <img src="images/person_` + getRandomInt(1, 9) + `.jpg" />
                     <p class="payment-amount">` + value.contribution + `</p>
+                    <p class="payment-amount">Payment status: ` + status + `</p>
                     </div>`;
 
       });

@@ -104,10 +104,10 @@ function getDonations() {
       // Chopping it up so we only show latest 5 contributions
       // console.log(donatorList.slice(0, (donatorList.length < 5 ? donatorList.length : 5)));
       var donator = "";
-      var status = value.status;
-      var amount = value.contribution;
       $.each(donatorList, function (index, value) {
-
+        var status = value.status;
+        var amount = value.contribution;
+  
         donator = donator + `<div class="paynow">
                     <p class="name">` + value.name + `</p>`;
         if (status != STATUS_SETTLED) {

@@ -104,21 +104,22 @@ function getDonations() {
       // Chopping it up so we only show latest 5 contributions
       // console.log(donatorList.slice(0, (donatorList.length < 5 ? donatorList.length : 5)));
       var donator = "";
-      var status ="Settled"
+      var status = value.status;
+      var amount = value.contribution;
       $.each(donatorList, function (index, value) {
 
         donator = donator + `<div class="paynow">
                     <p class="name">` + value.name + `</p>`;
-        if (value.status != STATUS_SETTLED) {
+        if (status != STATUS_SETTLED) {
           donator = donator + `<img src="images/alert.jpg" />`;
         }
         else {
           donator = donator + `<img src="images/person_` + value.id + `.jpg" />`;
         }
-        donator = donator + `<p class="payment-amount">` + value.contribution + `</p>`;
+        donator = donator + `<p class="payment-amount">` + amount + `</p>`;
 
-        if (value.status != STATUS_SETTLED) {
-          donator = donator + `<p class="payment-status">Payment status: ` + value.status + `</p>`;
+        if (status != STATUS_SETTLED) {
+          donator = donator + `<p class="payment-status">Payment status: ` + status + `</p>`;
         }
 
         donator = donator + `</div>`;

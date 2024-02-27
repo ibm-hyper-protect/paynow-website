@@ -20,6 +20,8 @@ BACKEND_URL.pathname = '/api/v1/transactions'
 var BACKEND = BACKEND_URL.toString()
 console.log("BACKEND: " + BACKEND);
 
+var STATUS_SETTLED = "Settled"
+
 // Used to select random people photos
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -38,7 +40,9 @@ $("#paynowButton").click(function () {
     location: $('#formCountry').val(),
     contribution: $('#paymentAmount').val(),
     creditCardNumber: $('#ccNum').val(),
-    creditCardCVV: $('#ccCVV').val()
+    creditCardCVV: $('#ccCVV').val(),
+    id: getRandomInt(1, 9),
+    status: STATUS_SETTLED
   };
 
   console.log("Sending : " + JSON.stringify(donateJSON));
@@ -104,11 +108,20 @@ function getDonations() {
       $.each(donatorList, function (index, value) {
 
         donator = donator + `<div class="paynow">
-                    <p class="name">` + value.name + `</p>
-                    <img src="images/person_` + getRandomInt(1, 9) + `.jpg" />
-                    <p class="payment-amount">` + value.contribution + `</p>
-                    <p class="payment-status">Payment status: ` + status + `</p>
-                    </div>`;
+                    <p class="name">` + value.name + `</p>`;
+        if (value.status != STATUS_SETTLED) {
+          donator = donator + `<p class="payment-status">Payment status: ` + value.status + `</p>`;
+        }
+        else {
+          donator = donator + `<img src="images/alert.jpg" />`;
+        }
+        donator = donator + `<p class="payment-amount">` + value.contribution + `</p>`;
+
+        if (value.status != STATUS_SETTLED) {
+          donator = donator + `<p class="payment-status">Payment status: ` + value.status + `</p>`;
+        }
+
+        donator = donator + `</div>`;
 
       });
       $("#paynow-results").html(donator);

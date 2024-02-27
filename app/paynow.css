@@ -63,6 +63,12 @@ input {
 }
 
 .paynow .payment-amount {
-    font-weight: 300;
+    font-weight: 500;
+    text-align: center;
+}
+
+.paynow .payment-status {
+    font-size: 75%;
+    font-weight: 500;
     text-align: center;
 }

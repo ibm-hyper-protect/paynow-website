@@ -110,10 +110,10 @@ function getDonations() {
         donator = donator + `<div class="paynow">
                     <p class="name">` + value.name + `</p>`;
         if (value.status != STATUS_SETTLED) {
-          donator = donator + `<p class="payment-status">Payment status: ` + value.status + `</p>`;
+          donator = donator + `<img src="images/alert.jpg" />`;
         }
         else {
-          donator = donator + `<img src="images/alert.jpg" />`;
+          donator = donator + `<img src="images/person_` + value.id + `.jpg" />`;
         }
         donator = donator + `<p class="payment-amount">` + value.contribution + `</p>`;
 

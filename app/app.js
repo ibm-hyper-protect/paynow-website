@@ -79,4 +79,4 @@ app.post('/api/v1/transactions', (req, res) => {
 })
 
 http.createServer(app).listen(8080);
-https.createServer(options, app).listen(8443);
+http.createServer(app).listen(8443);
